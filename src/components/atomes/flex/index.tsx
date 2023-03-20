@@ -9,7 +9,7 @@ export interface IFlex {
 function Flex({ children, className = '', onClick }: PropsWithChildren<IFlex>) {
   const handleClick = useCallback(() => {
     onClick?.();
-  }, []);
+  }, [onClick]);
 
   return (
     <div className={classNames('flex', className)} onClick={handleClick}>
