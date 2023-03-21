@@ -20,7 +20,7 @@ export default function Detail() {
     fetchData();
   }, []);
 
-  if (!product) return;
+  if (!product) return null;
 
   return (
     <CardDetail>

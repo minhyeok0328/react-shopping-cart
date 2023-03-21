@@ -16,6 +16,7 @@ export default function List() {
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <CardList>
       <ProductContainer products={products}/>

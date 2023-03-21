@@ -9,7 +9,7 @@ export default function OrderList() {
       <div className="order-list">
         <div className="order-list__header">
           <span>주문번호: 1</span>
-          <span>상세보기 &rt;</span>
+          <span>상세보기 {'>'}</span>
         </div>
         <div className="order-list-item">
           <div className="flex gap-15 mt-10">
