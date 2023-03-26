@@ -4,8 +4,8 @@ import { IProduct } from '../types/shoppingCart';
 const BASE_URL = '/products';
 
 export function ProductService() {
-  const findAllProducts = async (): Promise<IProduct[]> => {
-    const { data } = await http.get(BASE_URL);
+  const findAllProducts = async (page = 1): Promise<IProduct[]> => {
+    const { data } = await http.get(`${BASE_URL}?page=${page}`);
 
     return data;
   };
