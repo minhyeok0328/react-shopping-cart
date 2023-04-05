@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface observerOptions {
   root: null;
@@ -19,14 +19,11 @@ const defaultOptions: observerOptions = {
 
 export default function useInfinityScroll(callback: () => void, options: observerOptions = defaultOptions) {
   const ref = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(([entry]) => {
-      setIsVisible(entry.isIntersecting);
-
       if (entry.isIntersecting) {
         callback();
       }

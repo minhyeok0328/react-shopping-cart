@@ -1,25 +1,34 @@
 import { ProductService } from '../service';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import ProductContainer from '../components/organisms/product/ProductContainer';
-import { IProduct } from '../types/shoppingCart';
-import { CardList } from '../components/template';
+import { useInfinityScroll, usePagination } from '../hooks';
+import { useAtom } from 'jotai';
+import { products } from '../store/products';
 
 export default function List() {
   const { findAllProducts } = ProductService();
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [productItems, setProductItems] = useAtom(products);
+  const { items, nextPage } = usePagination(productItems, 8);
 
-  const fetchData = async () => {
-    const products = await findAllProducts();
-    setProducts(products);
-  };
+  const getProducts = useCallback(async () => {
+    const productItems = await findAllProducts();
+    setProductItems(productItems);
+  }, []);
+
+  const ref = useInfinityScroll(() => {
+    nextPage();
+  });
 
   useEffect(() => {
-    fetchData();
+    if (!productItems.length) {
+      getProducts();
+    }
   }, []);
 
   return (
-    <CardList>
-      <ProductContainer products={products}/>
-    </CardList>
+    <div className="card-list">
+      <ProductContainer products={items}/>
+      <div ref={ref}></div>
+    </div>
   );
 }
