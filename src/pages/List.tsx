@@ -20,9 +20,7 @@ export default function List() {
   });
 
   useEffect(() => {
-    if (!productItems.length) {
-      getProducts();
-    }
+    getProducts();
   }, []);
 
   return (
